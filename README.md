@@ -122,3 +122,6 @@ fun TextField(
     )
 }
 ```
+
+**Result:**
+https://github.com/user-attachments/assets/03a95138-85f5-48b8-95be-096081478a1b
