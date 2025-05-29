@@ -2,10 +2,17 @@ package com.somnionocte.foundation_components.core
 
 import androidx.annotation.FloatRange
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.core.graphics.ColorUtils
 
 fun Color.mix(
     @FloatRange(from = 0.0, to = 1.0) ratio: Float,
     color: Color
-) = Color(ColorUtils.blendARGB(this.toArgb(), color.toArgb(), ratio))
+): Color {
+    val inverseRatio = 1 - ratio
+
+    val r = red * inverseRatio + color.red * ratio
+    val g = green * inverseRatio + color.green * ratio
+    val b = blue * inverseRatio + color.blue * ratio
+    val a = alpha * inverseRatio + color.alpha * ratio
+
+    return Color(r, g, b, a.coerceIn(0f..1f))
+}

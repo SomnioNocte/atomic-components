@@ -27,14 +27,14 @@ Most components have two versions: raw and animated. In most cases, start with t
 
 At the moment there are:
 
-* FoundationButton / AnimatedFoundationButton
-* FoundationTextField
-* coreScrollbar
-* Text
+* `FoundationButton` / `AnimatedFoundationButton`
+* `FoundationTextField`
+* `coreScrollbar`
+* `Text`
 
 A couple of simple examples:
 
-**MaterialYou FilledButton**
+**FilledButton from MaterialYou**
 ```kotlin
 @Composable
 fun FilledButton(
@@ -52,10 +52,9 @@ fun FilledButton(
         backgroundColor = backgroundColor,
         shape = RoundedCornerShape(1000.dp),
         pressedBackgroundColor = remember { backgroundColor.mix(.125f, contentColor) },
-        contentColor = contentColor
-    ) {
-        content()
-    }
+        contentColor = contentColor,
+        content = content
+    )
 }
 ```
 
@@ -110,8 +109,8 @@ fun TextField(
         keyboardActions = keyboardActions,
         keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,
-        label = label?.let { {
-            ProvideTextStyle(TextStyle(color = accent.copy(.8f)), it)
+        label = label?.let { { 
+            ProvideTextStyle(TextStyle(color = accent.copy(.8f)), it) 
         } },
         placeholder = placeholder,
         prefix = prefix,

@@ -110,10 +110,9 @@ object MaterialYou {
             backgroundColor = backgroundColor,
             shape = RoundedCornerShape(1000.dp),
             pressedBackgroundColor = remember { backgroundColor.mix(.125f, contentColor) },
-            contentColor = contentColor
-        ) {
-            content()
-        }
+            contentColor = contentColor,
+            content = content
+        )
     }
 
     @Composable
