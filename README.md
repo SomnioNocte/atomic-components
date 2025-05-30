@@ -127,6 +127,8 @@ fun TextField(
 
 https://github.com/user-attachments/assets/03a95138-85f5-48b8-95be-096081478a1b
 
+**Linear Progress**
+
 ```kotlin
 LinearProgressIndicator({ .5f })
 
@@ -176,6 +178,4 @@ FoundationLinearProgress(
 }
 ```
 
-Result: 
-
-<img>
+![Result](https://github.com/user-attachments/assets/f057e7ac-275a-45fe-8302-7917109185ff)
