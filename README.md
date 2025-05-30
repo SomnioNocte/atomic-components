@@ -35,10 +35,10 @@ At the moment there are:
 
 A couple of simple examples:
 
-**FilledButton from MaterialYou**
+**FilledTonalButton from MaterialYou**
 ```kotlin
 @Composable
-fun FilledButton(
+fun FilledTonalButton(
     onClick: () -> Unit,
     enabled: Boolean = true,
     content: @Composable RowScope.() -> Unit
@@ -47,15 +47,15 @@ fun FilledButton(
     val contentColor = MaterialTheme.colorScheme.onPrimaryContainer
 
     AnimatedFoundationButton(
-        onClick = onClick,
-        enabled = enabled,
-        contentPadding = PaddingValues(18.dp, 8.dp),
+        {  },
+        shape = RoundedCornerShape(45),
+        contentPadding = PaddingValues(16.dp),
         backgroundColor = backgroundColor,
-        shape = RoundedCornerShape(1000.dp),
-        pressedBackgroundColor = remember { backgroundColor.mix(.125f, contentColor) },
+        pressedBackgroundColor = backgroundColor.mix(.25f, contentColor),
         contentColor = contentColor,
-        content = content
-    )
+    ) {
+        Text("Foundation Button")
+    }
 }
 ```
 

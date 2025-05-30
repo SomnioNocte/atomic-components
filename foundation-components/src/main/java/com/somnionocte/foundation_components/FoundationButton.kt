@@ -42,14 +42,14 @@ fun FoundationButton(
     minWidth: Dp = 48.dp,
     minHeight: Dp = 48.dp,
     designModifier: Modifier = Modifier,
-    contentColor: Color = Color.Black,
+    contentColor: Color = LocalContentColor.current,
     contentPadding: PaddingValues = PaddingValues(0.dp),
     textStyle: TextStyle = LocalTextStyle.current,
     indication: Indication? = LocalIndication.current,
     horizontalArrangement: Arrangement.Horizontal = Arrangement.Center,
     verticalAlignment: Alignment.Vertical = Alignment.CenterVertically,
     interactionSource: MutableInteractionSource? = null,
-    content: @Composable RowScope.() -> Unit,
+    content: @Composable RowScope.() -> Unit
 ) {
     Box(
         modifier

@@ -30,6 +30,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.unit.dp
+import com.somnionocte.foundation_components.animated.AnimatedFoundationButton
 import com.somnionocte.foundation_components.core.ScaleIndication
 import com.somnionocte.foundation_components.extensions.mix
 import com.somnionocte.foundation_components.ui.theme.FoundationComponentsTheme
@@ -56,7 +57,16 @@ class MainActivity : ComponentActivity() {
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.spacedBy(12.dp)
                         ) {
-
+                            AnimatedFoundationButton(
+                                {  },
+                                shape = RoundedCornerShape(45),
+                                contentPadding = PaddingValues(16.dp),
+                                backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+                                pressedBackgroundColor = MaterialTheme.colorScheme.run { primaryContainer.mix(.25f, onPrimaryContainer) },
+                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                            ) {
+                                Text("Foundation Button")
+                            }
                         }
                     }
                 }
