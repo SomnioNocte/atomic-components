@@ -1,4 +1,4 @@
-package com.somnionocte.foundation_components.core
+package com.somnionocte.foundation_components.extensions
 
 import androidx.annotation.FloatRange
 import androidx.compose.ui.graphics.Color

@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.somnionocte.foundation_components.core.animatableStateOf
-import com.somnionocte.foundation_components.core.mix
+import com.somnionocte.foundation_components.extensions.animatableStateOf
+import com.somnionocte.foundation_components.extensions.mix
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch

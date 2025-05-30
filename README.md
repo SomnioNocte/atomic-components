@@ -31,6 +31,7 @@ At the moment there are:
 * `FoundationTextField`
 * `coreScrollbar`
 * `Text`
+* `FoundationLinearProgress`
 
 A couple of simple examples:
 
@@ -125,3 +126,56 @@ fun TextField(
 **Result:**
 
 https://github.com/user-attachments/assets/03a95138-85f5-48b8-95be-096081478a1b
+
+```kotlin
+LinearProgressIndicator({ .5f })
+
+val color = MaterialTheme.colorScheme.run { surfaceContainerLowest.mix(.2f, primary) }
+val trackColor = MaterialTheme.colorScheme.primary
+
+FoundationLinearProgress(
+    progress = { .5f },
+    color = color,
+    trackColor = trackColor
+)
+
+FoundationLinearProgress(
+    progress = { .5f },
+    color = color,
+    trackColor = trackColor,
+    shapeRadius = 16.dp,
+    trackPadding = PaddingValues(4.dp),
+    height = 12.dp
+)
+
+FoundationLinearProgress(
+    progress = { .5f },
+    color = color,
+    trackColor = trackColor,
+    shapeRadius = 16.dp,
+    height = 5.dp,
+    trackGap = 6.dp
+)
+
+FoundationLinearProgress(
+    progress = { .5f },
+    color = color,
+    trackColor = trackColor,
+    shapeRadius = 16.dp,
+    height = 4.5.dp,
+    trackGap = 6.dp
+) {
+    val dotSize = size.height
+
+    drawRoundRect(
+        trackColor,
+        topLeft = Offset(size.width - dotSize, 0f),
+        size = Size(dotSize, dotSize),
+        cornerRadius = CornerRadius(dotSize, dotSize)
+    )
+}
+```
+
+Result: 
+
+<img>

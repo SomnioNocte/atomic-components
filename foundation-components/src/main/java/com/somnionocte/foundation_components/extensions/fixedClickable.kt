@@ -1,4 +1,4 @@
-package com.somnionocte.foundation_components.core
+package com.somnionocte.foundation_components.extensions
 
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.clickable
