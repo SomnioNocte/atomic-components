@@ -32,12 +32,17 @@ fun Modifier.fixedClickable(
         onClick = onClick,
         role = role,
         onClickLabel = onClickLabel
-    ).pointerInput(Unit) { detectTapGestures(
-        onPress = { offset ->
-            val press = PressInteraction.Press(offset)
-            interactionSource.emit(press)
-            tryAwaitRelease()
-            interactionSource.emit(PressInteraction.Release(press))
+    ).pointerInput(enabled) {
+        if(enabled) {
+            detectTapGestures(
+                onTap = { onClick() },
+                onPress = { offset ->
+                    val press = PressInteraction.Press(offset)
+                    interactionSource.emit(press)
+                    tryAwaitRelease()
+                    interactionSource.emit(PressInteraction.Release(press))
+                }
+            )
         }
-    ) }
+    }
 }

@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.graphics.Color
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
 fun animatableStateOf(
     animatable: Animatable<Float, AnimationVector1D>,
     spec: @DisallowComposableCalls () -> AnimationSpec<Float> = { spring() },
-    onAnimationFinished: () -> Unit = {  },
+    onAnimationFinished: suspend () -> Unit = {  },
     value: @DisallowComposableCalls () -> Float
 ): State<Float> {
     val state by remember { derivedStateOf { value() } }
@@ -47,9 +48,9 @@ fun animatableStateOf(
  * */
 @Composable
 fun animatableStateOf(
-    spec: () -> AnimationSpec<Float> = { spring() },
+    spec: () -> AnimationSpec<Float> = { spring(1f, 3000f) },
     initialValue: Float = 0f,
-    onAnimationFinished: () -> Unit = {  },
+    onAnimationFinished: suspend () -> Unit = {  },
     value: () -> Float
 ): State<Float> {
     val animatable = remember { Animatable(initialValue) }

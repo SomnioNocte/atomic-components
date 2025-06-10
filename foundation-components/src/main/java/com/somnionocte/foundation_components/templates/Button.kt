@@ -1,4 +1,4 @@
-package com.somnionocte.foundation_components.animated
+package com.somnionocte.foundation_components.templates
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -10,9 +10,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,7 +31,7 @@ import com.somnionocte.foundation_components.core.LocalContentColor
 import com.somnionocte.foundation_components.extensions.animateColorAsState
 
 @Composable
-fun AnimatedFoundationButton(
+fun TemplateButton(
     onClick: () -> Unit,
     backgroundColor: Color,
     modifier: Modifier = Modifier,
@@ -58,7 +58,7 @@ fun AnimatedFoundationButton(
         pressedBackgroundColor
     )
 
-    val opacity by animateFloatAsState(if(enabled) 1f else .75f, spring(1f, 500f))
+    val opacity by animateFloatAsState(if(enabled) 1f else .65f, spring(1f, 500f))
 
     CompositionLocalProvider(LocalContentColor provides contentColor) {
         FoundationButton(

@@ -46,5 +46,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation("com.github.SomnioNocte:portal:0.1.0")
     implementation(project(":foundation-components"))
 }

@@ -2,6 +2,7 @@ package com.somnionocte.foundation_components
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.PaddingValues
@@ -60,8 +61,8 @@ fun DrawScope.drawCoreScrollBar(
 
 fun Modifier.coreScrollbar(
     scrollState: ScrollState,
-    color: Color = Color.Gray.copy(.5f),
     contentPadding: PaddingValues = PaddingValues(10.dp),
+    color: Color = Color.Gray.copy(.5f),
     fadeSpecIn: AnimationSpec<Float> = spring(1f, 1000f),
     fadeSpecOut: AnimationSpec<Float> = spring(1f, 200f),
     delayToFadeOut: Long = 750L,
@@ -81,12 +82,12 @@ fun Modifier.coreScrollbar(
     }
 
     val progress by animatableStateOf(
-        spec = { spring(1f, 5000f) },
+        spec = { spring(1f, 8000f) },
         value = { scrollState.value.toFloat() / scrollState.maxValue }
     )
 
     val heightFraction by animatableStateOf(
-        spec = { spring(1f, 5000f) },
+        spec = { spring(1f, 8000f) },
         value = {
             val fraction = (scrollState.viewportSize.toFloat() / (scrollState.maxValue * density.density + scrollState.viewportSize))
                 .coerceIn(.1f, 1f)
@@ -127,12 +128,12 @@ fun Modifier.coreScrollbar(
     }
 
     val progress by animatableStateOf(
-        spec = { spring(1f, 5000f) },
+        spec = { spring(1f, 8000f) },
         value = { scrollState.value.toFloat() / scrollState.maxValue }
     )
 
     val heightFraction by animatableStateOf(
-        spec = { spring(1f, 5000f) },
+        spec = { spring(1f, 8000f) },
         value = {
             val fraction = (scrollState.viewportSize.toFloat() / (scrollState.maxValue * density.density + scrollState.viewportSize))
                 .coerceIn(.1f, 1f)

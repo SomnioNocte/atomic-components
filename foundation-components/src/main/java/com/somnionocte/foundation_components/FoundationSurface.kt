@@ -36,7 +36,7 @@ import com.somnionocte.foundation_components.extensions.surface
 @Composable
 fun FoundationSurface(
     modifier: Modifier = Modifier,
-    contentColor: Color = Color.Unspecified,
+    contentColor: Color = LocalContentColor.current,
     designModifier: Modifier = Modifier,
     clearFocusOnTap: Boolean = true,
     content: @Composable BoxScope.() -> Unit
@@ -59,14 +59,14 @@ fun FoundationSurface(
 @Composable
 fun FoundationSurface(
     modifier: Modifier = Modifier,
-    surfaceColor: Color = Color.Unspecified,
+    color: Color = Color.Unspecified,
     contentColor: Color = LocalContentColor.current,
     shape: Shape = RectangleShape,
     border: BorderStroke? = null,
     clearFocusOnTap: Boolean = true,
     content: @Composable BoxScope.() -> Unit
 ) {
-    val brush = remember(surfaceColor) { SolidColor(surfaceColor) }
+    val brush = remember(color) { SolidColor(color) }
 
     FoundationSurface(
         modifier = modifier,
