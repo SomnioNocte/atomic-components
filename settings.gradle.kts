@@ -22,4 +22,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Foundation Components"
 include(":app")
-include(":foundation-components")
+include(":atomic-components")

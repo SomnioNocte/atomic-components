@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.somnionocte.foundation_components"
+    namespace = "com.somnionocte.atomic_components"
     compileSdk = 35
 
     defaultConfig {
@@ -47,5 +47,5 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation("com.github.SomnioNocte:portal:0.1.0")
-    implementation(project(":foundation-components"))
+    implementation(project(":atomic-components"))
 }
