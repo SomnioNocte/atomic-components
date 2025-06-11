@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,9 +22,9 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 
 enum class AtomicTextFieldLabelPosition {
-    Outside,
+    // Outside, //TODO()
     Inside,
-    InlineBorder
+    // InlineBorder // TODO()
 }
 
 @Composable
@@ -35,79 +36,30 @@ private fun DecorationBox(
     prefix: @Composable (() -> Unit)? = null,
     suffix: @Composable (() -> Unit)? = null,
     innerTextField: @Composable () -> Unit,
+    minWidth: Dp = 250.dp,
+    minHeight: Dp = 28.dp,
     innerTextFieldGap: Dp = 8.dp
 ) {
-    @Composable
-    fun MainRow() {
-        Layout(
-            listOf(
-                { Row(verticalAlignment = Alignment.CenterVertically) { prefix?.invoke() } },
-                { Box {
-                    placeholder?.let { if(isEmpty()) it() }
-                    innerTextField()
-                } },
-                { Row(verticalAlignment = Alignment.CenterVertically) { suffix?.invoke() } },
-            )
-        ) { measurables, constrains ->
-            val constrains = constrains.copy(minWidth = 0, minHeight = 0)
+    Column(
+        verticalArrangement = Arrangement.spacedBy(innerTextFieldGap)
+    ) {
+        label?.invoke()
 
-            val gap = innerTextFieldGap.roundToPx()
+        Row(
+            Modifier.defaultMinSize(minWidth, minHeight),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(innerTextFieldGap)
+        ) {
+            prefix?.invoke()
 
-            val prefixPlaceable =
-                if(prefix != null) measurables[0].first().measure(constrains)
-                else null
-
-            val prefixWidth = prefixPlaceable?.run { measuredWidth + gap } ?: 0
-
-            val suffixPlaceable =
-                if(suffix != null) measurables[2].first().measure(constrains)
-                else null
-
-            val suffixWidth = suffixPlaceable?.run { measuredWidth + gap } ?: 0
-
-            val minWidth = 250.dp.roundToPx() - suffixWidth - prefixWidth
-            val maxWidth = constrains.maxWidth - suffixWidth - prefixWidth
-
-            val innerTextFieldPlaceable = measurables[1].first().measure(constrains.copy(minWidth = minWidth, maxWidth = maxWidth))
-
-            val width = prefixWidth + innerTextFieldPlaceable.measuredWidth + suffixWidth
-
-            val height = maxOf(
-                prefixPlaceable?.measuredHeight ?: 0,
-                innerTextFieldPlaceable.measuredHeight,
-                suffixPlaceable?.measuredHeight ?: 0
-            )
-
-            layout(width, height) {
-                prefixPlaceable?.place(IntOffset(
-                    0,
-                    (height * .5f - prefixPlaceable.measuredHeight * .5f).toInt()
-                ))
-
-                innerTextFieldPlaceable.place(IntOffset(
-                    prefixWidth,
-                    (height * .5f - innerTextFieldPlaceable.measuredHeight * .5f).toInt()
-                ))
-
-                suffixPlaceable?.place(IntOffset(
-                    width - suffixPlaceable.measuredWidth,
-                    (height * .5f - suffixPlaceable.measuredHeight * .5f).toInt()
-                ))
+            if(placeholder == null) {
+                innerTextField()
+            } else Box(contentAlignment = Alignment.CenterStart) {
+                if(isEmpty()) placeholder.invoke()
+                innerTextField()
             }
-        }
-    }
 
-    if(label == null || labelPosition == AtomicTextFieldLabelPosition.Outside) {
-        MainRow()
-    } else if(labelPosition == AtomicTextFieldLabelPosition.Inside) {
-        Column(verticalArrangement = Arrangement.spacedBy(innerTextFieldGap)) {
-            label()
-            MainRow()
-        }
-    } else {
-        Box {
-            MainRow()
-            label()
+            suffix?.invoke()
         }
     }
 }
@@ -136,6 +88,8 @@ fun AtomicTextField(
     minLines: Int = 1,
     interactionSource: MutableInteractionSource? = null,
     innerTextFieldGap: Dp = 8.dp,
+    minWidth: Dp = 250.dp,
+    minHeight: Dp = 24.dp,
     cursorColor: Color? = textStyle.color
 ) {
     ProvideTextStyle(textStyle.merge(TextStyle(color = textStyle.color.copy(.7f)))) {
@@ -167,6 +121,8 @@ fun AtomicTextField(
                         prefix,
                         suffix,
                         innerTextField,
+                        minWidth,
+                        minHeight,
                         innerTextFieldGap
                     )
                 }
