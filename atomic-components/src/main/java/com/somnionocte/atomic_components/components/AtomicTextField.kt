@@ -1,4 +1,4 @@
-package com.somnionocte.atomic_components
+package com.somnionocte.atomic_components.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -20,17 +20,11 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-
-enum class AtomicTextFieldLabelPosition {
-    // Outside, //TODO()
-    Inside,
-    // InlineBorder // TODO()
-}
+import com.somnionocte.atomic_components.core.LocalContentColor
 
 @Composable
 private fun DecorationBox(
     isEmpty: () -> Boolean,
-    labelPosition: AtomicTextFieldLabelPosition,
     label: @Composable (() -> Unit)? = null,
     placeholder: @Composable (() -> Unit)? = null,
     prefix: @Composable (() -> Unit)? = null,
@@ -69,7 +63,6 @@ fun AtomicTextField(
     value: String,
     onChange: (value: String) -> Unit,
     modifier: Modifier = Modifier,
-    labelPosition: AtomicTextFieldLabelPosition = AtomicTextFieldLabelPosition.Inside,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     textStyle: TextStyle = LocalTextStyle.current,
@@ -92,7 +85,9 @@ fun AtomicTextField(
     minHeight: Dp = 24.dp,
     cursorColor: Color? = textStyle.color
 ) {
-    ProvideTextStyle(textStyle.merge(TextStyle(color = textStyle.color.copy(.7f)))) {
+    val textStyle = LocalTextStyle.current.merge(textStyle)
+
+    ProvideTextStyle(textStyle) {
         Layout(listOf(
             { supportingText?.let {
                 Row(supportingTextModifier, horizontalArrangement = supportingTextArrangement) { it() }
@@ -107,6 +102,7 @@ fun AtomicTextField(
                     enabled = enabled,
                     maxLines = maxLines,
                     minLines = minLines,
+                    singleLine = singleLine,
                     interactionSource = interactionSource,
                     visualTransformation = visualTransformation,
                     keyboardActions = keyboardActions,
@@ -115,7 +111,6 @@ fun AtomicTextField(
                 ) { innerTextField ->
                     DecorationBox(
                         { value.isEmpty() },
-                        labelPosition,
                         label,
                         placeholder,
                         prefix,

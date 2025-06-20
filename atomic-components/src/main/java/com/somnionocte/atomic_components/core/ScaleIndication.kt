@@ -8,6 +8,7 @@ import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.scale
+import androidx.compose.ui.graphics.layer.drawLayer
 import androidx.compose.ui.node.DelegatableNode
 import androidx.compose.ui.node.DrawModifierNode
 import androidx.compose.ui.util.lerp
@@ -40,7 +41,7 @@ private class ScaleIndicationNode(
 
     private suspend fun animateToResting() {
         while (animatedScalePercent.isRunning) awaitFrame()
-        animatedScalePercent.animateTo(0f, spring(1f, 500f))
+        animatedScalePercent.animateTo(0f, spring(1f, 300f))
     }
 
     private val isPressed = MutableStateFlow(false)

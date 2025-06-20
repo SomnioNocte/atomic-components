@@ -16,7 +16,7 @@
  * Copyright 2025 Somnio:Nocte
  */
 
-package com.somnionocte.atomic_components
+package com.somnionocte.atomic_components.components
 
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.foundation.text.BasicText
@@ -57,12 +57,12 @@ import com.somnionocte.atomic_components.core.LocalContentColor
  *   from [style] will be used instead.
  *
  * Additionally, for [color], if [color] is not set, and [style] does not have a color, then
- * [com.somnionocte.atomic_components.core.LocalContentColor] will be used.
+ * [LocalContentColor] will be used.
  *
  * @param text the text to be displayed
  * @param modifier the [Modifier] to be applied to this layout node
  * @param color [Color] to apply to the text. If [Color.Unspecified], and [style] has no color set,
- *   this will be [com.somnionocte.atomic_components.core.LocalContentColor].
+ *   this will be [LocalContentColor].
  * @param fontSize the size of glyphs to use when painting the text. See [TextStyle.fontSize].
  * @param fontStyle the typeface variant to use when drawing the letters (e.g., italic). See
  *   [TextStyle.fontStyle].
@@ -111,7 +111,6 @@ fun Text(
     onTextLayout: ((TextLayoutResult) -> Unit)? = null,
     style: TextStyle = LocalTextStyle.current
 ) {
-
     val textColor = color.takeOrElse { style.color.takeOrElse { LocalContentColor.current } }
 
     BasicText(

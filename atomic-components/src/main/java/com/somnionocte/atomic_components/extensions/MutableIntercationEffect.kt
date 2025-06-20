@@ -1,9 +1,15 @@
 package com.somnionocte.atomic_components.extensions
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.AnimationVector4D
 import androidx.compose.animation.core.Ease
 import androidx.compose.animation.core.EaseOutCirc
+import androidx.compose.animation.core.EaseOutExpo
 import androidx.compose.animation.core.FiniteAnimationSpec
+import androidx.compose.animation.core.TwoWayConverter
+import androidx.compose.animation.core.animateValueAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -16,6 +22,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.graphics.Color
+import com.somnionocte.compose_extensions.animatableColorAs
 import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
@@ -42,8 +49,8 @@ fun InteractionSource.animateColorAsState(
     pressed: Color,
     hovered: Color = default,
     focused: Color = default,
-    specIn: FiniteAnimationSpec<Color> = tween(150, 0, EaseOutCirc),
-    specOut: FiniteAnimationSpec<Color> = tween(550, 0, Ease),
+    specIn: FiniteAnimationSpec<Color> = tween(100, 0, EaseOutExpo),
+    specOut: FiniteAnimationSpec<Color> = spring(1f, 200f),
 ): State<Color> {
     val isPressed by collectIsPressedAsState()
     val isHovered by collectIsHoveredAsState()
@@ -58,4 +65,26 @@ fun InteractionSource.animateColorAsState(
                 else default,
         animationSpec = if(isPressed) specIn else specOut
     )
+}
+
+enum class InteractionPressState { Default, Pressed, Hovered, Focused }
+
+@Composable
+fun InteractionSource.animatableColorState(
+    color: (InteractionPressState) -> Color,
+    specIn: FiniteAnimationSpec<Color> = tween(100, 0, EaseOutExpo),
+    specOut: FiniteAnimationSpec<Color> = spring(1f, 200f),
+): State<Color> {
+    val isPressed by collectIsPressedAsState()
+    val isHovered by collectIsHoveredAsState()
+    val isFocused by collectIsFocusedAsState()
+
+    return animatableColorAs({ if(isPressed) specIn else specOut }) {
+        when {
+            isPressed -> color(InteractionPressState.Pressed)
+            isHovered -> color(InteractionPressState.Hovered)
+            isFocused -> color(InteractionPressState.Focused)
+            else -> color(InteractionPressState.Default)
+        }
+    }.asState()
 }

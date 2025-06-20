@@ -1,4 +1,4 @@
-package com.somnionocte.atomic_components
+package com.somnionocte.atomic_components.components
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
@@ -19,11 +19,11 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.somnionocte.atomic_components.extensions.animatableStateOf
-import com.somnionocte.atomic_components.extensions.mix
+import com.somnionocte.compose_extensions.animatableAs
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
@@ -44,7 +44,7 @@ fun DrawScope.drawCoreScrollBar(
         val maxScrollBarHeight = size.height - padding
 
         drawRoundRect(
-            Color.Transparent.mix(opacity, color),
+            lerp(Color.Transparent, color, opacity),
             Offset(
                 x = size.width - contentPadding.calculateEndPadding(LayoutDirection.Ltr).toPx(),
                 y = contentPadding.calculateTopPadding().toPx() + 12.dp.toPx() + progress * (maxScrollBarHeight - (fillSpace * overscroll) * maxScrollBarHeight)
@@ -80,19 +80,19 @@ fun Modifier.coreScrollbar(
             }
     }
 
-    val progress by animatableStateOf(
+    val progress by animatableAs(
         spec = { spring(1f, 8000f) },
         value = { scrollState.value.toFloat() / scrollState.maxValue }
-    )
+    ).asState()
 
-    val heightFraction by animatableStateOf(
+    val heightFraction by animatableAs(
         spec = { spring(1f, 8000f) },
         value = {
             val fraction = (scrollState.viewportSize.toFloat() / (scrollState.maxValue * density.density + scrollState.viewportSize))
                 .coerceIn(.1f, 1f)
             fraction.pow(.65f)
         }
-    )
+    ).asState()
 
     val overscroll by remember { derivedStateOf {
         overscrollOffset
@@ -126,19 +126,19 @@ fun Modifier.coreScrollbar(
             } }
     }
 
-    val progress by animatableStateOf(
+    val progress by animatableAs(
         spec = { spring(1f, 8000f) },
         value = { scrollState.value.toFloat() / scrollState.maxValue }
-    )
+    ).asState()
 
-    val heightFraction by animatableStateOf(
+    val heightFraction by animatableAs(
         spec = { spring(1f, 8000f) },
         value = {
             val fraction = (scrollState.viewportSize.toFloat() / (scrollState.maxValue * density.density + scrollState.viewportSize))
                 .coerceIn(.1f, 1f)
             fraction.pow(.65f)
         }
-    )
+    ).asState()
 
     drawWithContent {
         drawContent()

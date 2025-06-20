@@ -1,4 +1,4 @@
-package com.somnionocte.atomic_components
+package com.somnionocte.atomic_components.components
 
 import androidx.compose.foundation.Indication
 import androidx.compose.foundation.LocalIndication
@@ -7,6 +7,8 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.selection.triStateToggleable
@@ -17,6 +19,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -26,8 +29,7 @@ fun AtomicToggleable(
     modifier: Modifier = Modifier,
     designModifier: Modifier,
     enabled: Boolean = true,
-    minWidth: Dp = 48.dp,
-    minHeight: Dp = 48.dp,
+    minSize: DpSize = DpSize(48.dp, 48.dp),
     interactionSource: MutableInteractionSource? = null,
     indication: Indication? = LocalIndication.current,
     role: Role,
@@ -37,7 +39,7 @@ fun AtomicToggleable(
 
     Box(
         modifier
-            .sizeIn(minWidth = minWidth, maxWidth = minWidth, minHeight = minHeight, maxHeight = minHeight)
+            .size(minSize)
             .triStateToggleable(state, interactionSource, indication, enabled, role, onClick)
             .pointerInput(state, enabled) {
                 if(enabled) detectTapGestures(
@@ -62,8 +64,7 @@ fun AtomicToggleable(
     modifier: Modifier = Modifier,
     designModifier: Modifier,
     enabled: Boolean = true,
-    minWidth: Dp = 48.dp,
-    minHeight: Dp = 48.dp,
+    minSize: DpSize = DpSize(48.dp, 48.dp),
     interactionSource: MutableInteractionSource? = null,
     indication: Indication? = LocalIndication.current,
     role: Role,
@@ -73,7 +74,7 @@ fun AtomicToggleable(
 
     Box(
         modifier
-            .sizeIn(minWidth = minWidth, maxWidth = minWidth, minHeight = minHeight, maxHeight = minHeight)
+            .size(minSize)
             .toggleable(state, interactionSource, indication, enabled, role, onClick)
             .pointerInput(state, enabled) {
                 if(enabled) detectTapGestures(

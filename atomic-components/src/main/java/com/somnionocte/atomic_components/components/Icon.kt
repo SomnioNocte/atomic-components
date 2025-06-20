@@ -16,7 +16,7 @@
  * Copyright 2025 Somnio:Nocte
  */
 
-package com.somnionocte.atomic_components
+package com.somnionocte.atomic_components.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size

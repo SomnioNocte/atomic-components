@@ -1,4 +1,4 @@
-package com.somnionocte.atomic_components
+package com.somnionocte.atomic_components.components
 
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.spring
@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
-import com.somnionocte.atomic_components.extensions.animatableStateOf
+import com.somnionocte.compose_extensions.animatableAs
 
 @Composable
 fun AtomicLinearProgress(
@@ -37,7 +37,7 @@ fun AtomicLinearProgress(
     spec: FiniteAnimationSpec<Float> = spring(1f, 1000f),
     draw: (DrawScope.() -> Unit)? = null
 ) {
-    val animatedProgress by animatableStateOf({ spec }) { progress().coerceIn(0f..1f) }
+    val animatedProgress by animatableAs({ spec }) { progress().coerceIn(0f..1f) }.asState()
 
     Canvas(modifier.size(width, height).clip(RoundedCornerShape(shapeRadius))) {
         drawRect(color)
@@ -75,7 +75,7 @@ fun AtomicLinearProgress(
     spec: FiniteAnimationSpec<Float> = spring(1f, 1000f),
     draw: (DrawScope.() -> Unit)? = null
 ) {
-    val animatedProgress by animatableStateOf({ spec }) { progress().coerceIn(0f..1f) }
+    val animatedProgress by animatableAs({ spec }) { progress().coerceIn(0f..1f) }.asState()
 
     Canvas(modifier.size(width, height)) {
         val gapOffset = Offset(trackGap.roundToPx() * (1f - animatedProgress), 0f)

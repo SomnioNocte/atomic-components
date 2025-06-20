@@ -30,8 +30,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import com.somnionocte.atomic_components.AtomicToggleable
+import com.somnionocte.atomic_components.components.AtomicToggleable
 import com.somnionocte.atomic_components.extensions.CheckDrawingCache
 import com.somnionocte.atomic_components.extensions.drawCheck
 
@@ -47,11 +48,10 @@ fun TemplateCheckbox(
     borderStrokeChecked: BorderStroke? = borderStroke,
     checkColor: Color = Color.Unspecified,
     shape: Shape = RoundedCornerShape(40),
-    minWidth: Dp = 32.dp,
-    minHeight: Dp = minWidth,
+    minSize: DpSize = DpSize(32.dp, 32.dp),
     interactionSource: MutableInteractionSource? = null,
     margin: PaddingValues = PaddingValues(6.dp),
-    animationSpec: FiniteAnimationSpec<Float> = spring(1f, 700f),
+    animationSpec: FiniteAnimationSpec<Float> = spring(1f, 1000f),
     strokeWidthPx: Float = 8f,
     checkboxSize: Dp = 20.dp,
     indication: Indication? = LocalIndication.current,
@@ -87,8 +87,7 @@ fun TemplateCheckbox(
         onClick = onClick,
         modifier = modifier.padding(margin),
         enabled = enabled,
-        minWidth = minWidth,
-        minHeight = minHeight,
+        minSize = minSize,
         interactionSource = interactionSource,
         indication = indication,
         designModifier = Modifier
@@ -130,8 +129,7 @@ fun TemplateCheckbox(
     borderStroke: BorderStroke? = null,
     borderStrokeChecked: BorderStroke? = borderStroke,
     shape: Shape = RoundedCornerShape(40),
-    minWidth: Dp = 32.dp,
-    minHeight: Dp = minWidth,
+    minSize: DpSize = DpSize(32.dp, 32.dp),
     interactionSource: MutableInteractionSource? = null,
     margin: PaddingValues = PaddingValues(6.dp),
     animationSpec: FiniteAnimationSpec<Float> = spring(1f, 700f),
@@ -162,8 +160,7 @@ fun TemplateCheckbox(
         borderStroke = borderStroke,
         borderStrokeChecked = borderStrokeChecked,
         shape = shape,
-        minWidth = minWidth,
-        minHeight = minHeight,
+        minSize = minSize,
         interactionSource = interactionSource,
         margin = margin,
         animationSpec = animationSpec,

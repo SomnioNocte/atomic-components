@@ -41,6 +41,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation")
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.compose.ui:ui")
+    implementation("com.github.SomnioNocte:compose-extensions:0.1.1")
     implementation("com.github.SomnioNocte:portal:0.1.0")
     implementation("com.github.SomnioNocte:overscroll:0.1.0")
 }

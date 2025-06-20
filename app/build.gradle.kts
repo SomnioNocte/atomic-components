@@ -47,5 +47,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation("com.github.SomnioNocte:portal:0.1.0")
+    implementation("com.github.SomnioNocte:screen-router:0.8.1")
+    implementation("com.github.SomnioNocte:compose-extensions:0.1.1")
     implementation(project(":atomic-components"))
 }

@@ -1,4 +1,4 @@
-package com.somnionocte.atomic_components
+package com.somnionocte.atomic_components.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
@@ -16,8 +16,8 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.semantics.isContainer
 import androidx.compose.ui.semantics.semantics
 import com.somnionocte.atomic_components.core.LocalContentColor
-import com.somnionocte.atomic_components.extensions.clearFocusOnTap
 import com.somnionocte.atomic_components.extensions.surface
+import com.somnionocte.compose_extensions.clearFocusOnTap
 
 @Composable
 fun AtomicSurface(
@@ -66,7 +66,7 @@ fun AtomicSurface(
 @Composable
 fun AtomicSurface(
     modifier: Modifier = Modifier,
-    surfaceColor: Brush,
+    color: Brush,
     contentColor: Color = LocalContentColor.current,
     shape: Shape = RectangleShape,
     border: BorderStroke? = null,
@@ -75,7 +75,7 @@ fun AtomicSurface(
 ) {
     AtomicSurface(
         modifier = modifier,
-        designModifier = Modifier.surface(surfaceColor, shape, border),
+        designModifier = Modifier.surface(color, shape, border),
         contentColor = contentColor,
         clearFocusOnTap = clearFocusOnTap,
         content = content

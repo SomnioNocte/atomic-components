@@ -9,17 +9,18 @@ import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.drawOutline
@@ -29,25 +30,28 @@ import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
-import com.somnionocte.atomic_components.AtomicToggleable
+import androidx.compose.ui.util.lerp
+import com.somnionocte.atomic_components.components.AtomicToggleable
 
 @Composable
-fun TemplateRadioButton(
+fun TemplateSwitch(
     checked: Boolean,
-    onCheckedChange: () -> Unit,
+    onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     backgroundColor: Color = Color.Unspecified,
+    thumbColor: Color = Color.Unspecified,
     backgroundCheckedColor: Color = Color.Unspecified,
-    checkColor: Color = Color.Unspecified,
+    thumbCheckedColor: Color = Color.Unspecified,
     borderStroke: BorderStroke? = null,
     borderStrokeChecked: BorderStroke? = borderStroke,
     shape: Shape = RoundedCornerShape(50),
     thumbShape: Shape = RoundedCornerShape(50),
-    minWidth: Dp = 28.dp,
-    minHeight: Dp = minWidth,
-    checkSize: Dp = 16.dp,
+    thumbOffset: PaddingValues = PaddingValues(4.dp),
+    minSize: DpSize = DpSize(58.dp, 38.dp),
     interactionSource: MutableInteractionSource? = null,
     margin: PaddingValues = PaddingValues(4.dp, 6.dp),
     animationSpec: FiniteAnimationSpec<Float> = spring(1f, 700f),
@@ -57,15 +61,14 @@ fun TemplateRadioButton(
 
     val transition by animateFloatAsState(if(checked) 1f else 0f, animationSpec)
 
-    val disabledTransition by animateFloatAsState(if(enabled) 1f else .5f, animationSpec)
+    val disabledTransition by animateFloatAsState(if(enabled) 1f else .65f, animationSpec)
 
     AtomicToggleable(
         state = checked,
-        onClick = { onCheckedChange() },
+        onClick = onCheckedChange,
         modifier = modifier.padding(margin),
         enabled = enabled,
-        minWidth = minWidth,
-        minHeight = minHeight,
+        minSize = minSize,
         interactionSource = interactionSource,
         indication = indication,
         role = Role.Switch,
@@ -91,19 +94,27 @@ fun TemplateRadioButton(
             }
             .clip(shape)
             .graphicsLayer {
-                scaleX = transition
-                scaleY = scaleX
+                val thumbSize = size.height - thumbOffset.run { calculateTopPadding() + calculateBottomPadding() }.roundToPx()
+
+                translationX = lerp(
+                    thumbOffset.calculateStartPadding(LayoutDirection.Ltr).toPx(),
+                    size.width - (thumbSize + thumbOffset.calculateEndPadding(LayoutDirection.Ltr).toPx()),
+                    transition
+                )
+                translationY = thumbOffset.calculateTopPadding().toPx()
             }
     ) {
         Box(Modifier
-            .align(Alignment.Center)
-            .wrapContentSize(Alignment.Center)
-            .size(checkSize)
+            .aspectRatio(1f)
+            .padding(thumbOffset)
             .drawWithCache {
-                val thumbOutline = thumbShape.createOutline(size, layoutDirection, Density(density))
+                val thumbSize = (size.height - thumbOffset.run { calculateTopPadding() + calculateBottomPadding() }.roundToPx())
+                    .let { Size(it, it) }
+
+                val thumbOutline = thumbShape.createOutline(thumbSize, layoutDirection, Density(density))
 
                 onDrawBehind {
-                    drawOutline(thumbOutline, lerp(Color.Transparent, checkColor, transition))
+                    drawOutline(thumbOutline, lerp(thumbColor, thumbCheckedColor, transition))
                 }
             })
     }
