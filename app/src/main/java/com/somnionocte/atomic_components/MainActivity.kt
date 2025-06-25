@@ -24,6 +24,8 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -351,6 +353,7 @@ class MainActivity : ComponentActivity() {
             AtomicTextField(
                 rememberTextFieldState(),
                 designModifier = Modifier
+                    .width(300.dp)
                     .background(MaterialTheme.colorScheme.surfaceContainerLowest, RoundedCornerShape(22.dp))
                     .padding(22.dp),
                 textColor = MaterialTheme.colorScheme.onSurface,
@@ -365,6 +368,7 @@ class MainActivity : ComponentActivity() {
             AtomicTextField(
                 rememberTextFieldState(),
                 designModifier = Modifier
+                    .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.surfaceContainerLowest, RoundedCornerShape(22.dp))
                     .padding(22.dp),
                 textColor = MaterialTheme.colorScheme.onSurface,
@@ -375,157 +379,5 @@ class MainActivity : ComponentActivity() {
                 support = { Text("support") }
             )
         }
-    }
-
-//    @Composable
-//    fun RadioButton(
-//        checked: Boolean,
-//        onCheck: () -> Unit,
-//        enabled: Boolean = true
-//    ) {
-//        TemplateRadioButton(
-//            checked,
-//            onCheck,
-//            enabled = enabled,
-//            backgroundColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-//            backgroundCheckedColor = MaterialTheme.colorScheme.primaryContainer,
-//            checkColor = MaterialTheme.colorScheme.onPrimaryContainer,
-//        )
-//    }
-//
-//    @Composable
-//    fun Switch(
-//        checked: Boolean,
-//        onCheck: (Boolean) -> Unit,
-//        enabled: Boolean = true
-//    ) {
-//        TemplateSwitch(
-//            checked,
-//            onCheck,
-//            enabled = enabled,
-//            backgroundColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-//            backgroundCheckedColor = MaterialTheme.colorScheme.primaryContainer,
-//            thumbColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-//            thumbCheckedColor = MaterialTheme.colorScheme.onPrimaryContainer
-//        )
-//    }
-//
-//    @Composable
-//    fun CheckBox(
-//        checked: Boolean,
-//        onCheck: (Boolean) -> Unit,
-//        enabled: Boolean = true
-//    ) {
-//        TemplateCheckbox(
-//            checked,
-//            onCheck,
-//            enabled = enabled,
-//            backgroundColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-//            backgroundCheckedColor = MaterialTheme.colorScheme.primaryContainer,
-//            checkColor = MaterialTheme.colorScheme.onPrimaryContainer,
-//            borderStroke = BorderStroke(1.5.dp, MaterialTheme.colorScheme.secondaryContainer)
-//        )
-//    }
-//
-//    @Composable
-//    fun MyAppBar(
-//        title: String,
-//        onBackClick: () -> Unit = {  }
-//    ) {
-//        TemplateLargeAppBar(
-//            navigation = {
-//                IconButton(onBackClick) { Icon(Icons.AutoMirrored.Rounded.ArrowBack, null) }
-//            },
-//            header = {
-//                Text(title, Modifier.padding(start = 8.dp), fontWeight = FontWeight.SemiBold)
-//            },
-//            largeHeader = {
-//                Text(
-//                    title, Modifier.padding(start = 8.dp, bottom = 8.dp),
-//                    fontSize = 28.sp, fontWeight = FontWeight.SemiBold
-//                )
-//            },
-//            inactiveBackgroundColor = MaterialTheme.colorScheme.background,
-//            backgroundColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-//            contentPadding = PaddingValues(16.dp, 8.dp, 16.dp, 8.dp)
-//        )
-//    }
-//
-//    @Composable
-//    fun MyBottomBar(content: @Composable RowScope.() -> Unit) {
-//        TemplateCollapseBottomBar(
-//            modifier = Modifier.fillMaxWidth(),
-//            backgroundColor = MaterialTheme.colorScheme.surfaceContainerLowest,
-//            content = content
-//        )
-//    }
-//
-//    @Composable
-//    fun Button(index: Int, enabled: Boolean = true, onClick: () -> Unit = {  }) {
-//        TemplateButton(
-//            onClick = onClick,
-//            enabled = enabled,
-//            shape = RoundedCornerShape(45),
-//            contentPadding = PaddingValues(24.dp),
-//            backgroundColor = MaterialTheme.colorScheme.primaryContainer,
-//            pressedBackgroundColor = MaterialTheme.colorScheme.run { primaryContainer.mix(.25f, onPrimaryContainer) },
-//            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-//        ) {
-//            Text("Foundation Button $index")
-//        }
-//    }
-//
-    val textStyleTextField = TextStyle(fontSize = 18.sp, fontWeight = FontWeight.Medium)
-
-    @Composable
-    fun TextField(
-        value: String,
-        onChange: (value: String) -> Unit,
-        modifier: Modifier = Modifier,
-        enabled: Boolean = true,
-        readOnly: Boolean = false,
-        textStyle: TextStyle = textStyleTextField,
-        label: @Composable() (() -> Unit)? = null,
-        placeholder: @Composable() (() -> Unit)? = null,
-        prefix: @Composable() (() -> Unit)? = null,
-        suffix: @Composable() (() -> Unit)? = null,
-        supportingText: @Composable() (() -> Unit)? = null,
-        visualTransformation: VisualTransformation = VisualTransformation.None,
-        keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-        keyboardActions: KeyboardActions = KeyboardActions.Default,
-        singleLine: Boolean = false,
-        maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
-        minLines: Int = 1,
-        backgroundColor: Color = MaterialTheme.colorScheme.surfaceContainerHigh,
-        shape: RoundedCornerShape = RoundedCornerShape(28.dp),
-        padding: PaddingValues = PaddingValues(22.dp),
-        interactionSource: MutableInteractionSource? = null
-    ) {
-        AtomicTextField(
-            value = value,
-            onChange = onChange,
-            modifier = modifier
-                .background(backgroundColor, shape)
-                .padding(padding),
-            enabled = enabled,
-            readOnly = readOnly,
-            textStyle = LocalTextStyle.current.merge(textStyle),
-            label = label,
-            placeholder = placeholder,
-            prefix = prefix,
-            suffix = suffix,
-            supportingText = supportingText,
-            supportingTextArrangement = Arrangement.SpaceBetween,
-            supportingTextModifier = Modifier,
-            visualTransformation = visualTransformation,
-            keyboardOptions = keyboardOptions,
-            keyboardActions = keyboardActions,
-            singleLine = singleLine,
-            maxLines = maxLines,
-            minLines = minLines,
-            interactionSource = interactionSource,
-            innerTextFieldGap = 16.dp,
-            cursorColor = LocalContentColor.current,
-        )
     }
 }
