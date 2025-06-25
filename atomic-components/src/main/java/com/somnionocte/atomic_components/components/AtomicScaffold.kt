@@ -19,6 +19,10 @@ fun AtomicScaffold(
     bottom: (@Composable () -> Unit)? = null,
     subBottom: (@Composable () -> Unit)? = null,
     includeSystemPadding: Boolean = true,
+    topModifier: Modifier = Modifier,
+    bottomModifier: Modifier = Modifier,
+    subBottomModifier: Modifier = Modifier,
+    contentModifier: Modifier = Modifier,
     content: @Composable (innerPadding: PaddingValues) -> Unit,
 ) {
     val systemPadding =
@@ -29,15 +33,15 @@ fun AtomicScaffold(
         val constrains = constrains.copy(minWidth = 0, minHeight = 0)
 
         val topPlaceable =
-            if(top != null) subcompose("top") { Box { top() } }.first().measure(constrains)
+            if(top != null) subcompose("top") { Box(topModifier) { top() } }.first().measure(constrains)
             else null
 
         val bottomPlaceable =
-            if(bottom != null) subcompose("bottom") { Box { bottom() } }.first().measure(constrains)
+            if(bottom != null) subcompose("bottom") { Box(bottomModifier) { bottom() } }.first().measure(constrains)
             else null
 
         val subBottomPlaceable =
-            if(subBottom != null) subcompose("subBottom") { Box { subBottom() } }.first().measure(constrains)
+            if(subBottom != null) subcompose("subBottom") { Box(subBottomModifier) { subBottom() } }.first().measure(constrains)
             else null
 
         val bottomPadding = bottomPlaceable?.height?.toDp() ?: systemPadding.calculateBottomPadding()
@@ -48,7 +52,7 @@ fun AtomicScaffold(
             bottom = bottomPadding + subBottomPadding,
         )
 
-        val contentPlaceable = subcompose("content") { Box { content(finalInnerPadding) } }
+        val contentPlaceable = subcompose("content") { Box(contentModifier) { content(finalInnerPadding) } }
             .first().measure(constrains)
 
         layout(constrains.maxWidth, constrains.maxHeight) {
