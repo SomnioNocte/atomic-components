@@ -59,6 +59,7 @@ import androidx.compose.ui.unit.sp
 import com.somnio_nocte.portal.NexusPortal
 import com.somnionocte.atomic_components.components.AtomicAppBar
 import com.somnionocte.atomic_components.components.AtomicButton
+import com.somnionocte.atomic_components.components.AtomicLinearIndeterminateProgress
 import com.somnionocte.atomic_components.components.AtomicScaffold
 import com.somnionocte.atomic_components.components.AtomicSurface
 import com.somnionocte.atomic_components.components.AtomicTextField
@@ -153,6 +154,11 @@ class MainActivity : ComponentActivity() {
                     Toggleables()
 
                     Inputs()
+
+                    AtomicLinearIndeterminateProgress(
+                        MaterialTheme.colorScheme.onPrimaryContainer,
+                        MaterialTheme.colorScheme.primaryContainer
+                    )
                 }
             }
         }
