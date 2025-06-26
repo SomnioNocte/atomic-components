@@ -7,29 +7,21 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
@@ -38,8 +30,6 @@ import androidx.compose.material.icons.rounded.AccountBox
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -53,7 +43,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.somnio_nocte.portal.NexusPortal
@@ -64,7 +53,6 @@ import com.somnionocte.atomic_components.components.AtomicScaffold
 import com.somnionocte.atomic_components.components.AtomicSurface
 import com.somnionocte.atomic_components.components.AtomicTextField
 import com.somnionocte.atomic_components.components.Icon
-import com.somnionocte.atomic_components.components.LocalTextStyle
 import com.somnionocte.atomic_components.components.Text
 import com.somnionocte.atomic_components.core.ScaleIndication
 import com.somnionocte.atomic_components.extensions.drawBackgroundBrush
@@ -76,8 +64,6 @@ import com.somnionocte.atomic_components.templates.TemplateRadioButton
 import com.somnionocte.atomic_components.templates.TemplateSwitch
 import com.somnionocte.atomic_components.ui.theme.FoundationComponentsTheme
 import com.somnionocte.compose_extensions.animatableColorAs
-import com.somnionocte.screen_router.NullScreen
-import com.somnionocte.screen_router.Screen
 import com.somnionocte.screen_router.ScreenRouter
 
 class MainActivity : ComponentActivity() {
